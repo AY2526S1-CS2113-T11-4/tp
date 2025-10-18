@@ -90,13 +90,13 @@ public class PetList {
     }
 
     /**
-     * Removes and returns the pet at the specified index in the list.
+     * Removes the specified pet from the list, if it exists.
      *
-     * @param index the zero-based index of the pet to remove
-     * @return the {@link Pet} object that was removed from the list
+     * @param petToDelete the {@link Pet} object to remove
+     * @return {@code true} if the pet was found and removed; {@code false} otherwise
      */
-    public Pet deleteByIndex(int index) {
-        return pets.remove(index);
+    public boolean deletePet(Pet petToDelete) {
+        return pets.remove(petToDelete);
     }
 
 }

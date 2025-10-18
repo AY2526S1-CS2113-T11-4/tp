@@ -34,27 +34,21 @@ class DeletePetCommandTest {
     }
 
     @Test
-    void exec_validIndex_deletesPet() {
-        deleteCommand.exec("i/1");
+    void exec_validName_deletesPet() {
+        deleteCommand.exec("n/buddy");
         assertEquals(1, pets.size());
         assertEquals("Milo", pets.get(0).getName());
     }
 
     @Test
-    void exec_indexOutOfBounds_printsError() {
-        deleteCommand.exec("i/5");
+    void exec_invalidPetName_printsError() {
+        deleteCommand.exec("n/what");
         assertEquals(2, pets.size());
     }
 
     @Test
-    void exec_missingIndex_printsError() {
+    void exec_missingName_printsError() {
         deleteCommand.exec("");
-        assertEquals(2, pets.size());
-    }
-
-    @Test
-    void exec_invalidNumberFormat_printsError() {
-        deleteCommand.exec("i/abc");
         assertEquals(2, pets.size());
     }
 

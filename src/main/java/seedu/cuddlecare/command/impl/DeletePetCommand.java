@@ -8,14 +8,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Command to delete a pet from the {@link PetList} based on its index.
+ * Command to delete a pet from the {@link PetList} based on its name.
  * <p>
- * Usage: <code>delete-pet i/&lt;index&gt;</code>
+ * Usage: <code>delete-pet n/&lt;pet name&gt;</code>
  * <ul>
- *     <li>i/&lt;index&gt; : the 1-based index of the pet to delete from the list</li>
+ *     <li>n/&lt;pet name&gt; : the name of the pet to delete from the list</li>
  * </ul>
  * <p>
- * Example: <code>delete-pet i/2</code> will remove the second pet in the list.
+ * Example: <code>delete-pet n/Fluffy</code> will remove the pet named "Fluffy" from the list.
  */
 public class DeletePetCommand implements Command {
 
@@ -27,7 +27,7 @@ public class DeletePetCommand implements Command {
     /**
      * Syntax help message displayed on incorrect usage.
      */
-    private static final String SYNTAX = "delete-pet i/<index>";
+    private static final String SYNTAX = "delete-pet n/<pet name>";
 
     /**
      * The list of pets to operate on.
@@ -49,77 +49,66 @@ public class DeletePetCommand implements Command {
      * <p>
      * Steps performed by this method:
      * <ol>
-     *     <li>Parses the index from the input arguments using {@link #parseIndex(String)}.</li>
-     *     <li>Validates the index using {@link #isValidIndex(int)}.</li>
-     *     <li>If valid, deletes the pet using {@link #deletePet(int)} and prints a confirmation message.</li>
-     *     <li>If invalid, prints an error message indicating incorrect syntax or invalid index.</li>
+     *     <li>Parses the pet name from the input arguments using {@link #getPetName(String)}.</li>
+     *     <li>Checks whether a pet with the given name exists in the {@link PetList}.</li>
+     *     <li>
+     *         If the pet exists, deletes it using {@link PetList#deletePet(Pet)} and
+     *         prints a confirmation message.
+     *     </li>
+     *     <li>If the pet does not exist or the syntax is invalid, prints an error message.</li>
      * </ol>
      *
-     * @param args the command arguments in the form <code>i/&lt;index&gt;</code>
+     * @param args the command arguments in the form <code>n/&lt;pet name&gt;</code>
      */
     public void exec(String args) {
         LOGGER.log(Level.INFO, "Executing DeletePetCommand with args: " + args);
 
-        try {
-            int index = parseIndex(args);
-            if (index == -1) {
-                System.out.printf("Incorrect Syntax: %s%n", SYNTAX);
-                LOGGER.log(Level.WARNING, "Failed to parse index from args: " + args);
-                return;
-            }
+        String petName = getPetName(args);
 
-            if (!isValidIndex(index)) {
-                System.out.printf("Invalid pet index: %d. Total pets: %d%n", index, pets.size());
-                LOGGER.log(Level.WARNING, "Invalid index provided: " + index);
-                return;
-            }
-            deletePet(index);
-        } catch (NumberFormatException e) {
-            System.out.printf("Incorrect syntax: %s%n", SYNTAX);
-            LOGGER.log(Level.SEVERE, "NumberFormatException while parsing index: " + e.getMessage());
+        if (petName == null || petName.isEmpty()) {
+            System.out.printf("Invalid Syntax: %s%n", SYNTAX);
+            LOGGER.log(Level.WARNING, "Invalid Command Syntax");
+            return;
         }
-    }
 
-    /**
-     * Parses the pet index from the command arguments.
-     *
-     * @param args the input arguments
-     * @return the parsed 1-based index if present, or -1 if missing
-     * @throws NumberFormatException if the index is not a valid integer
-     */
-    private int parseIndex(String args) throws NumberFormatException {
-        String[] parts = args.split(" (?=[w+]/)");
-        for (String part : parts) {
-            if (part.startsWith("i/")) {
-                return Integer.parseInt(part.substring(2).trim());
-            }
+        Pet pet = pets.getPetByName(petName);
+
+        if (pet == null) {
+            System.out.printf("No Pet named \"%s\" exists%n", petName);
+            LOGGER.log(Level.WARNING, "Invalid Pet Name: "+petName);
+            return;
         }
-        return -1;
-    }
 
-    /**
-     * Checks whether the provided index is within bounds of the pet list.
-     *
-     * @param index the 1-based pet index
-     * @return true if the index is valid, false otherwise
-     */
-    private boolean isValidIndex(int index) {
-        return index > 0 && index <= pets.size();
-    }
+        boolean isDeleted = pets.deletePet(pet);
 
-    /**
-     * Deletes the pet at the specified index from the pet list and prints a confirmation message.
-     *
-     * @param index the 1-based index of the pet to delete
-     */
-    private void deletePet(int index) {
-        Pet deleted = pets.deleteByIndex(index - 1);
-        assert deleted != null : "Deleted pet should never be null";
+        if (!isDeleted) {
+            System.out.printf("Something went wrong. Could not delete the pet");
+            LOGGER.log(Level.WARNING, "Could not delete a pet that exists");
+            return;
+        }
 
         System.out.printf("Successfully removed %s (%s, %d) from the list.%n",
-                deleted.getName(), deleted.getSpecies(), deleted.getAge());
+                pet.getName(), pet.getSpecies(), pet.getAge());
 
-        LOGGER.log(Level.INFO, String.format("Deleted pet at index %d: %s (%s, %d)",
-                index, deleted.getName(), deleted.getSpecies(), deleted.getAge()));
+        LOGGER.log(Level.INFO, String.format("Deleted pet: %s (%s, %d)",
+                pet.getName(), pet.getSpecies(), pet.getAge()));
+    }
+
+    /**
+     * Parses the pet name from the command input string.
+     *
+     * @param input the raw command input, expected to contain "n/&lt;pet name&gt;"
+     * @return the extracted pet name, or {@code null} if no valid name is found
+     */
+    private String getPetName(String input) {
+        String[] parts = input.split(" (?=[w+]/)");
+
+        for (String part: parts) {
+            if (part.startsWith("n/")) {
+                return part.substring(2).trim();
+            }
+        }
+
+        return null;
     }
 }
