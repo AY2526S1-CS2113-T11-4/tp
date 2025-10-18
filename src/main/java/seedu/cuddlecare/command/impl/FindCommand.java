@@ -12,8 +12,8 @@ import java.util.logging.Level;
 /**
  * A command that searches for treatments by keyword across all pets.
  *
- * <p>When executed, this command searches through all treatments of all pets
- * and returns those that contain the specified keyword in their name.</p>
+ * When executed, this command searches through all treatments of all pets
+ * and returns those that contain the specified keyword in their name.
  */
 public class FindCommand implements Command {
 
@@ -35,9 +35,9 @@ public class FindCommand implements Command {
     /**
      * Executes the find treatment command.
      *
-     * <p>Searches through all treatments of all pets and displays those
+     * Searches through all treatments of all pets and displays those
      * that contain the keyword in their treatment name. The search is
-     * case-insensitive.</p>
+     * case-insensitive
      *
      * @param args the keyword to search for in treatment names
      */
