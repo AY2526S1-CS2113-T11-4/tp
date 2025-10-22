@@ -6,13 +6,12 @@ title ListAllTreatmentsCommand Class Diagram
 ' Classes
 ' =====================
 
-class Command {
+interface Command {
     + exec(args : String) : void
 }
 
 class ListAllTreatmentsCommand {
     - LOGGER : Logger
-    - pets : PetList
     + ListAllTreatmentsCommand(pets : PetList)
     + exec(args : String) : void
 }
@@ -45,7 +44,7 @@ class Treatment {
 ' Relationships
 ' =====================
 
-ListAllTreatmentsCommand -|> Command
+ListAllTreatmentsCommand .|> Command
 ListAllTreatmentsCommand --> PetList
 PetList "1" -> "*" Pet : contains
 Pet "1" --> "*" Treatment : has

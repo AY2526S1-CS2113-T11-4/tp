@@ -12,7 +12,6 @@ interface Command {
 
 class ListPetTreatmentsCommand {
     - LOGGER : Logger
-    - pets : PetList
     + ListPetTreatmentsCommand(pets : PetList)
     + exec(args : String) : void
 }
@@ -45,7 +44,7 @@ class Treatment {
 ' Relationships
 ' =====================
 
-ListPetTreatmentsCommand -|> Command
+ListPetTreatmentsCommand .|> Command
 ListPetTreatmentsCommand --> PetList
 PetList "1" -> "*" Pet : contains
 Pet "1" --> "*" Treatment : has
