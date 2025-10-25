@@ -1,0 +1,58 @@
+@startuml
+title FilterTreatmentByDateCommand Sequence Diagram
+
+participant ":FilterTreatmentByDateCommand" as FTC
+participant ":PetList" as PetList
+participant ":Pet" as Pet
+participant ":Treatment" as Treatment
+
+-> FTC : exec("start/START_DATE end/END_DATE")
+activate FTC
+
+FTC -> FTC : parseArguments(args)
+activate FTC
+FTC --> FTC : startDate, endDate
+deactivate FTC
+
+FTC -> FTC : validateDateRange(startDate, endDate)
+activate FTC
+FTC --> FTC : valid/invalid
+deactivate FTC
+
+alt invalid dates
+  FTC --> : "Invalid date format"
+else valid dates
+  FTC -> PetList : getAllPets()
+  activate PetList
+  PetList --> FTC : List<Pet>
+  deactivate PetList
+
+  loop for each pet
+    FTC -> Pet : getTreatments()
+    activate Pet
+    Pet --> FTC : ArrayList<Treatment>
+    deactivate Pet
+
+    loop for each treatment
+      FTC -> Treatment : getDate()
+      activate Treatment
+      Treatment --> FTC : LocalDate
+      deactivate Treatment
+
+      FTC -> FTC : isInRange(date, startDate, endDate)
+      activate FTC
+      FTC --> FTC : boolean
+      deactivate FTC
+    end
+  end
+
+  alt treatments found
+    FTC --> : "Treatments between START_DATE and END_DATE..."
+  else no treatments
+    FTC --> : "No treatments found"
+  end
+end
+
+deactivate FTC
+
+@enduml

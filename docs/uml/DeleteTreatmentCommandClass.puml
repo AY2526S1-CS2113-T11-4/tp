@@ -1,15 +1,15 @@
 @startuml
 skinparam classAttributeIconSize 0
-title AddTreatmentCommand Class Diagram
+title DeleteTreatmentCommand Class Diagram
 
-class AddTreatmentCommand {
-    - LOGGER : Logger
+class DeleteTreatmentCommand {
+    - {static} LOGGER : Logger
     - pets : PetList
-    + AddTreatmentCommand(pets : PetList)
+    + DeleteTreatmentCommand(pets : PetList)
     + exec(args : String) : void
 }
 
-interface Command {
+interface "<<Interface>>\nCommand" as Command {
     + exec(args : String) : void
 }
 
@@ -24,7 +24,7 @@ class Pet {
     - treatments : ArrayList<Treatment>
     + getName() : String
     + getTreatments() : ArrayList<Treatment>
-    + addTreatment(treatment : Treatment) : void
+    + removeTreatment(index : int) : Treatment
 }
 
 class Treatment {
@@ -34,12 +34,11 @@ class Treatment {
     - isCompleted : boolean
     + getType() : String
     + getDate() : LocalDate
-    + isCompleted() : boolean
     + toString() : String
 }
 
-Command <|-- AddTreatmentCommand
-AddTreatmentCommand -right-> PetList : uses
+Command <|.. DeleteTreatmentCommand
+DeleteTreatmentCommand -right-> PetList : uses
 PetList "1" *-- "*" Pet : contains
 Pet "1" *-left- "*" Treatment : has
 

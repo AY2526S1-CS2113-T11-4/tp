@@ -120,8 +120,61 @@ list-pets
 **Logging**
 - INFO on command entry/exit; FINE for iteration count.
 
-### Feature: Find Pet
-{add details here}
+### Feature: Find Treatment
+The FindCommand allows users to search for treatments across all pets by matching a keyword against treatment names. 
+The search is case-insensitive and uses substring matching.
+
+The sequence diagram below illustrates the execution flow of the find treatment command:
+
+![FindTreatmentCommand_Sequence_Diagram.png](Diagrams/FindTreatmentCommand_Sequence_Diagram.png)
+
+Implementation
+The find treatment mechanism is facilitated by `FindTreatmentCommand`. It performs a case-insensitive keyword search 
+across all treatments for all pets in the system. The search uses substring matching, allowing partial keyword matches.
+
+Key operations:
+* `PetList#getAllPets()` — Retrieves all pets in the system. 
+* `Pet#getTreatments()` — Gets the treatment list for each pet. 
+* String comparison using `toLowerCase()` and `contains()` for matching.
+
+Command format: `find-treatment KEYWORD`
+
+When the command is executed:
+1. User input is parsed to extract the search keyword 
+2. The keyword is validated (must not be empty)
+3. Command retrieves all pets from `PetList` 
+4. For each pet, the command iterates through its treatments 
+5. Each treatment name is checked against the keyword (case-insensitive substring match)
+6. Matching treatments are collected with their pet names and dates 
+7. Results are displayed to the user, or a "No treatments found" message if no matches
+
+### Feature: Filter Treatments By Date
+The FilterTreatmentCommand enables users to view all treatments that fall within a specified date range across all pets 
+in the system.
+
+The sequence diagram below shows the execution flow when filtering treatments by date:
+
+![FilterTreatmentByDateCommand_Sequence_Diagram.png](Diagrams/FilterTreatmentByDateCommand_Sequence_Diagram.png)
+
+The filter treatments by date range feature is facilitated by `FilterTreatmentCommand`. It allows users to view all 
+treatments that fall within a specified date range across all pets in the system.
+
+The implementation involves the following operations:
+* `PetList#getAllPets()` — Retrieves all pets. 
+* `Pet#getTreatments()` — Gets treatments for filtering. 
+* `Treatment#getDate()` — Retrieves the treatment date for comparison. 
+* Date comparison using `LocalDate#isAfter()` and `LocalDate#isBefore()`.
+
+Command format: `filter-treatment start/START_DATE end/END_DATE`
+
+When the command is executed:
+1. User input is parsed to extract start date and end date 
+2. Both dates are validated using `LocalDate.parse()`
+3. The command checks that start date is not after end date 
+4. Command retrieves all pets from `PetList`
+5. For each pet, the command iterates through its treatments 
+6. Each treatment's date is checked against the date range (inclusive)
+7. Matching treatments are collected and displayed to the user
 
 ### Feature: Add Treatment
 The diagram below shows how the AddTreatmentCommand class interacts with other components in the system.

@@ -15,9 +15,9 @@ import java.util.logging.Level;
  * When executed, this command searches through all treatments of all pets
  * and returns those that contain the specified keyword in their name.
  */
-public class FindCommand implements Command {
+public class FindTreatmentCommand implements Command {
 
-    private static final Logger LOGGER = Logger.getLogger(FindCommand.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(FindTreatmentCommand.class.getName());
 
     /** A list of all pets. */
     private final PetList pets;
@@ -27,7 +27,7 @@ public class FindCommand implements Command {
      *
      * @param pets the list of all pets
      */
-    public FindCommand(PetList pets) {
+    public FindTreatmentCommand(PetList pets) {
         assert pets != null : "PetList cannot be null";
         this.pets = pets;
     }

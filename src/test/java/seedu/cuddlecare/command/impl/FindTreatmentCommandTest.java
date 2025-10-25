@@ -14,9 +14,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
- * Test for {@link FindCommand}
+ * Test for {@link FindTreatmentCommand}
  */
-class FindCommandTest {
+class FindTreatmentCommandTest {
 
     private PetList petList;
     private ByteArrayOutputStream outContent;
@@ -49,7 +49,7 @@ class FindCommandTest {
 
     @Test
     void exec_findVaccine_findsAllVaccineTreatments() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("vaccine");
 
         String output = outContent.toString().trim();
@@ -60,7 +60,7 @@ class FindCommandTest {
 
     @Test
     void exec_findGrooming_findsGroomingTreatment() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("grooming");
 
         String output = outContent.toString().trim();
@@ -71,7 +71,7 @@ class FindCommandTest {
 
     @Test
     void exec_findCaseInsensitive_findsTreatments() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("VACCINE");
 
         String output = outContent.toString().trim();
@@ -82,7 +82,7 @@ class FindCommandTest {
 
     @Test
     void exec_findPartialWord_findsTreatments() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("clean");
 
         String output = outContent.toString().trim();
@@ -92,7 +92,7 @@ class FindCommandTest {
 
     @Test
     void exec_findNonExistentKeyword_printsNotFoundMessage() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("surgery");
 
         String output = outContent.toString().trim();
@@ -101,7 +101,7 @@ class FindCommandTest {
 
     @Test
     void exec_emptyKeyword_printsErrorMessage() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("");
 
         String output = outContent.toString().trim();
@@ -110,7 +110,7 @@ class FindCommandTest {
 
     @Test
     void exec_whitespaceKeyword_printsErrorMessage() {
-        FindCommand command = new FindCommand(petList);
+        FindTreatmentCommand command = new FindTreatmentCommand(petList);
         command.exec("   ");
 
         String output = outContent.toString().trim();
@@ -125,7 +125,7 @@ class FindCommandTest {
         emptyPetList.add(lonelyPet);
         // No treatments added
 
-        FindCommand command = new FindCommand(emptyPetList);
+        FindTreatmentCommand command = new FindTreatmentCommand(emptyPetList);
         command.exec("vaccine");
 
         String output = outContent.toString().trim();

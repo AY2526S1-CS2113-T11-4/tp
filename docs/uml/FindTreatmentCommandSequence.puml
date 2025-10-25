@@ -1,0 +1,38 @@
+@startuml
+title FindTreatmentCommand Sequence Diagram
+
+participant ":FindTreatmentCommand" as FC
+participant ":PetList" as PetList
+participant ":Pet" as Pet
+
+-> FC : exec("KEYWORD")
+activate FC
+
+FC -> PetList : getAllPets()
+activate PetList
+PetList --> FC : List<Pet>
+deactivate PetList
+
+loop for each pet
+  FC -> Pet : getTreatments()
+  activate Pet
+  Pet --> FC : ArrayList<Treatment>
+  deactivate Pet
+
+  loop for each treatment
+    FC -> FC : checkMatch(treatment, keyword)
+    activate FC
+    FC --> FC
+    deactivate FC
+  end
+end
+
+alt matches found
+  FC --> : "Found N treatments..."
+else no matches
+  FC --> : "No treatments found"
+end
+
+deactivate FC
+
+@enduml

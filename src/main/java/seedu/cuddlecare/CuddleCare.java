@@ -7,7 +7,8 @@ import seedu.cuddlecare.command.impl.ByeCommand;
 import seedu.cuddlecare.command.impl.DeletePetCommand;
 import seedu.cuddlecare.command.impl.DeleteTreatmentCommand;
 import seedu.cuddlecare.command.impl.EditPetCommand;
-import seedu.cuddlecare.command.impl.FindCommand;
+import seedu.cuddlecare.command.impl.FindTreatmentCommand;
+import seedu.cuddlecare.command.impl.FilterTreatmentByDateCommand;
 import seedu.cuddlecare.command.impl.GroupTreatmentsByTypeCommand;
 import seedu.cuddlecare.command.impl.ListAllTreatmentsCommand;
 import seedu.cuddlecare.command.impl.ListPetTreatmentsCommand;
@@ -17,7 +18,6 @@ import seedu.cuddlecare.command.impl.SummaryCommand;
 import seedu.cuddlecare.command.impl.UnmarkTreatmentCommand;
 import seedu.cuddlecare.config.LoggingConfigurator;
 import seedu.cuddlecare.parser.Parser;
-import seedu.cuddlecare.command.impl.FilterTreatmentByDateCommand;
 
 import java.util.Map;
 import java.util.Scanner;
@@ -136,7 +136,7 @@ public class CuddleCare {
                 Map.entry("list-treatments", new ListPetTreatmentsCommand(pets)),
                 Map.entry("delete-pet", new DeletePetCommand(pets)),
                 Map.entry("delete-treatment", new DeleteTreatmentCommand(pets)),
-                Map.entry("find", new FindCommand(pets)),
+                Map.entry("find", new FindTreatmentCommand(pets)),
                 Map.entry("edit-pet", new EditPetCommand(pets)),
                 Map.entry("group-treatments", new GroupTreatmentsByTypeCommand(pets)),
                 Map.entry("treatment-date", new FilterTreatmentByDateCommand(pets)),
