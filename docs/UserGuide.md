@@ -11,9 +11,7 @@ Hello! Welcome to CuddleCare.
 >
 ```
 
-## Features 
-
----
+## Features
 
 ### Add Pet — `add-pet`
 Adds a new pet to the tracker.
@@ -542,8 +540,7 @@ bye
 
 **Q**: How do I clear all data at once without deleting one by one?  
 **A**: Head over to `/data/` and delete the `cuddlecare_save.txt` file.  
-> [!CAUTION]
-> Deleting the save file will permanently erase all application data.
+> **⚠️️ CAUTION:** Deleting the save file will permanently erase all application data.
 
 
 ---
