@@ -23,8 +23,7 @@ return petName : String
 
 ' if input was invalid
 alt petName == null ||petName.isEmpty()
-    DeletePetCommand -> CuddleCare : print "Invalid Syntax..."
-    DeletePetCommand --> CuddleCare : (command failed)
+    DeletePetCommand --> CuddleCare : print "Invalid Syntax..."
 
 else else
     DeletePetCommand -> PetList : getPetByName(petName)
@@ -33,8 +32,7 @@ else else
 
     ' if invalid pet
     alt pet == null
-        DeletePetCommand -> CuddleCare : print "No Pet Found"
-        DeletePetCommand --> CuddleCare : (command failed)
+        DeletePetCommand --> CuddleCare : print "No Pet Found"
 
     else else
         DeletePetCommand -> PetList : deletePet(pet)
@@ -43,16 +41,17 @@ else else
 
         ' if some error in deleting the pet
         alt !isDeleted
-            DeletePetCommand -> CuddleCare : print "Could not delete"
-            DeletePetCommand --> CuddleCare : (command failed)
+            DeletePetCommand --> CuddleCare : print "Could not delete"
 
         else else
-            ' happy path
-            return print "Pet Deleted"
+
         end
+
 
     end
 
 end
+' happy path
+            return print "Pet Deleted"
 
 @enduml
