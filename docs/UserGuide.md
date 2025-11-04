@@ -252,7 +252,7 @@ mark n/PET_NAME i/INDEX
 
 ```
 > mark n/Milo i/2
-Marked "<treatment>" on "<date>" as done for "Milo"
+Marked Vaccination on 2025-10-05 as done for Milo
 ```
 
 - On malformed args or non-integer index, usage help is shown: `Usage: mark n/PET_NAME i/INDEX`.
@@ -275,7 +275,7 @@ unmark n/PET_NAME i/INDEX
 
 ```
 > unmark n/Milo i/2
-Unmarked "<treatment>" on "<date>" as done for "<pet>"
+Unmarked Vaccination on 2025-10-05 as done for Milo
 ```
 
 - On malformed args or non-integer index, usage help is shown: `Usage: unmark n/PET_NAME i/INDEX`.
