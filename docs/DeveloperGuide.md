@@ -33,13 +33,12 @@
 
 ## Acknowledgements
 
-***
 This Developer Guide was inspired by
 the [AddressBook-Level3 (AB3) Developer Guide](https://se-education.org/addressbook-level3/DeveloperGuide.html)
 
-## Design
-
 ***
+
+## Design
 
 ### Architecture
 
@@ -97,9 +96,9 @@ The sequence of interactions for a typical command (e.g., `add-pet n/Milo s/Dog 
 7. `Command` prints success/error message via `Ui`
 8. `CuddleCare` triggers `Storage` to save changes
 
-## Implementation
-
 ***
+
+## Implementation
 
 ### Feature: Add Pet
 
@@ -129,6 +128,7 @@ When executed, the command performs the following steps:
 The `AddPetCommand` ensures that only valid and unique pets are added to the
 pet list. It emphasizes input validation, duplicate prevention, and
 error handling, while maintaining logging for debugging/monitoring execution.
+
 ***
 
 ### Feature: Delete Pet
@@ -213,7 +213,7 @@ edit-pet n/Tama a/12
 
 **Purpose**: Display all pets maintained in memory.
 
-**Command word**: `list pets`
+**Command word**: `list-pets`
 
 **Format**
 
@@ -851,9 +851,9 @@ organized and ensuring pets stay healthy and happy.
 * *Treatment* - A health-related action or procedure scheduled or completed for a pet
 * *Species* - Describes the type of animal associated with each pet entry
 
-## Appendix: Instructions for manual testing
-
 ***
+
+## Appendix: Instructions for manual testing
 
 **Listing Pets**
 
@@ -947,7 +947,7 @@ organized and ensuring pets stay healthy and happy.
     - Prerequisites: Pet `Millie` exists with multiple treatments, some overdue and some upcoming (e.g.,
       `add-treatment n/Millie t/Vaccine d/2025-10-05`,  `add-treatment n/Millie t/Checkup d/2025-10-08`,
       `add-treatment n/Millie t/Something d/2026-10-07`).
-    - Test case: overdue-treatments
+    - Test case: `overdue-treatments`
         - Expected: Only pending treatments with past dates are displayed
     - Test case: `mark n/Millie i/1` then `overdue-treatments`
         - Expected: Marked treatments are excluded from the overdue list.

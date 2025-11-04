@@ -10,8 +10,8 @@ care routine is overlooked.
     - [List Pets — `list-pets`](#list-pets--list-pets)
     - [Edit Pet — `edit-pet`](#edit-pet--edit-pet)
     - [Delete Pet — `delete-pet`](#delete-pet--delete-pet)
-    - [Add Treatment — `add-treatment](#add-treatment--add-treatment)
-    - [Delete Treament — `delete-treatment](#delete-treatment--delete-treatment)
+    - [Add Treatment — `add-treatment`](#add-treatment--add-treatment)
+    - [Delete Treament — `delete-treatment`](#delete-treatment--delete-treatment)
     - [Mark a Treatment as Done — `mark`](#mark-a-treatment-as-done--mark)
     - [Unmark a Treatment — `unmark`](#unmark-a-treatment--unmark)
     - [Group Treatments by Type — `group-treatments`](#group-treatments-by-type--group-treatments)
@@ -66,6 +66,11 @@ A pet with that name already exists.
 **Notes**
 
 * Name and species can be 1 or more words.
+* Name cannot be longer than 20 chars.
+* Species cannot be longer than 30 chars.
+* Age cannot be more than 200 years old.
+* Name and species cannot include anything except: A-Z, a-z,
+  hyphen and space
 * Each pet's name must be unique or user will have to re-enter
   (as seen above).
 * Age must be a number and is in units of years.
@@ -247,7 +252,7 @@ mark n/PET_NAME i/INDEX
 
 ```
 > mark n/Milo i/2
-Marked "<treatment>" on "<date>" as done for "Milo"
+Marked Vaccination on 2025-10-05 as done for Milo
 ```
 
 - On malformed args or non-integer index, usage help is shown: `Usage: mark n/PET_NAME i/INDEX`.
@@ -270,7 +275,7 @@ unmark n/PET_NAME i/INDEX
 
 ```
 > unmark n/Milo i/2
-Unmarked "<treatment>" on "<date>" as done for "<pet>"
+Unmarked Vaccination on 2025-10-05 as done for Milo
 ```
 
 - On malformed args or non-integer index, usage help is shown: `Usage: unmark n/PET_NAME i/INDEX`.

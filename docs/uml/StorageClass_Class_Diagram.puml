@@ -49,9 +49,9 @@ class Treatment {
     + setCompleted(completed : boolean) : void
 }
 
-Storage -> PetList : has >
-PetList *-- Pet : has >
-Pet *-left- Treatment : has >
+Storage -> "1" PetList : has >
+PetList "1" *-- "*" Pet : has >
+Pet "1" *-left- "*" Treatment : has >
 Storage ..> Pet
 Storage ..> Treatment
 @enduml

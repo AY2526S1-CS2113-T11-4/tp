@@ -28,6 +28,8 @@ public class AddPetCommandTest {
     private ByteArrayOutputStream outContent;
     private final PrintStream originalOut = System.out;
 
+    private final String syntax = "add-pet n/PET_NAME s/PET_SPECIES a/PET_AGE";
+
     @BeforeAll
     static void muteLogs() {
         LogManager.getLogManager().reset();
@@ -97,7 +99,7 @@ public class AddPetCommandTest {
 
         command.exec("n/Fluffy");
         assertEquals(0, petList.size());
-        assertTrue(outContent.toString().contains("Invalid input. Please try again."));
+        assertTrue(outContent.toString().contains("Invalid input. Usage: " + syntax));
     }
 
     @Test

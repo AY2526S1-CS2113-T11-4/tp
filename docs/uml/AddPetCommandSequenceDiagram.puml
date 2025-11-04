@@ -5,6 +5,7 @@ participant ":CuddleCare" as CuddleCare
 participant ":AddPetCommand" as AddPetCommand
 participant ":PetList" as PetList
 participant ":Pet" as Pet
+participant "<<class>>\nUi" as Ui
 
 activate CuddleCare
 
@@ -17,10 +18,17 @@ return (created)
 CuddleCare -> AddPetCommand : exec(args : String)
 activate AddPetCommand
 
-' Invalid input case
-alt missing name OR species OR age < 0
-    AddPetCommand --> CuddleCare : print "Invalid input. Please try again."
+' Validate input
+AddPetCommand -> AddPetCommand : validate(name: String, species: String, age: int)
+activate AddPetCommand
+note right: Returns error message if invalid\nnull if valid
+return validation : String
 
+alt validation != null
+    AddPetCommand -> Ui : printInvalidInputMessage(SYNTAX)
+    activate Ui
+    return
+    AddPetCommand --> CuddleCare
 else valid input
     ' Create Pet object
     AddPetCommand -> Pet** : new(name, species, age)

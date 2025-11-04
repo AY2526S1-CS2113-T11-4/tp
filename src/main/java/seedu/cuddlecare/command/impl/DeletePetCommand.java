@@ -3,6 +3,7 @@ package seedu.cuddlecare.command.impl;
 import seedu.cuddlecare.Pet;
 import seedu.cuddlecare.PetList;
 import seedu.cuddlecare.command.Command;
+import seedu.cuddlecare.ui.Ui;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -26,7 +27,7 @@ public class DeletePetCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(DeletePetCommand.class.getName());
 
 
-    private static final String SYNTAX = "delete-pet n/<pet name>";
+    private static final String SYNTAX = "delete-pet n/PET_NAME";
     private static final String SHORT_DESCRIPTION = "Deletes a pet from the application by name";
     private static final String LONG_DESCRIPTION = "Removes a pet from the PetList " +
             "based on its name. If the pet exists, it will be " +
@@ -72,7 +73,7 @@ public class DeletePetCommand implements Command {
         String petName = getPetName(args);
 
         if (petName == null || petName.isEmpty()) {
-            System.out.printf("Invalid Syntax: %s%n", SYNTAX);
+            Ui.printInvalidInputMessage(SYNTAX);
             LOGGER.log(Level.WARNING, "Invalid Command Syntax");
             return;
         }
@@ -81,7 +82,7 @@ public class DeletePetCommand implements Command {
 
         if (pet == null) {
             System.out.printf("No Pet named \"%s\" exists%n", petName);
-            LOGGER.log(Level.WARNING, "Invalid Pet Name: "+petName);
+            LOGGER.log(Level.WARNING, "Invalid Pet Name: " + petName);
             return;
         }
 

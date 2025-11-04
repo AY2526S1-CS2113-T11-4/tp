@@ -62,4 +62,7 @@ Contributed: [Code Dashboard](https://nus-cs2113-ay2526s1.github.io/tp-dashboard
 
 ### Team
 
-- Reviewed teammates’ PRs
+- Reviewed teammates’ PRs 
+  - Some PRs I've reviewed: [#38](https://github.com/AY2526S1-CS2113-T11-4/tp/pull/38), 
+  [#41](https://github.com/AY2526S1-CS2113-T11-4/tp/pull/41), [#79](https://github.com/AY2526S1-CS2113-T11-4/tp/pull/79),
+  [#100](https://github.com/AY2526S1-CS2113-T11-4/tp/pull/100)

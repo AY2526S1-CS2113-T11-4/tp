@@ -13,7 +13,7 @@ interface "<<interface>> Command" as Command {
     + getCategory(): List<String>
 }
 
-class ":ByeCommand" as Bye {
+class "ByeCommand" as Bye {
     - {static} SYNTAX : String
     - {static} SHORT_DESCRIPTION : String
     - {static} LONG_DESCRIPTION : String

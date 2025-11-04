@@ -3,6 +3,7 @@ package seedu.cuddlecare.command.impl;
 import seedu.cuddlecare.Pet;
 import seedu.cuddlecare.PetList;
 import seedu.cuddlecare.command.Command;
+import seedu.cuddlecare.ui.Ui;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -75,9 +76,11 @@ public class AddPetCommand implements Command {
                 }
             }
 
-            if (name == null || species == null || age < 0) {
-                LOGGER.log(Level.WARNING, "Invalid input. Missing/invalid fields.");
-                System.out.println("Invalid input. Please try again.");
+            String validation = validate(name, species, age);
+            if (validation != null) {
+                LOGGER.log(Level.WARNING, "Validation failed: " + validation);
+                System.out.println(validation);
+                Ui.printInvalidInputMessage(SYNTAX);
                 return;
             }
 
@@ -101,6 +104,40 @@ public class AddPetCommand implements Command {
         } finally {
             LOGGER.log(Level.INFO, "Add-pet command execution completed.");
         }
+    }
+
+    private String validate(String name, String species, int age) {
+        String valid = "^[a-zA-Z\\- ]+";
+
+        if (name == null || name.isEmpty()) {
+            return "Pet name cannot be empty.";
+        }
+
+        if (name.length() > 20) {
+            return "Pet name cannot exceed 20 characters.";
+        }
+
+        if (!name.matches(valid)) {
+            return "Pet name can only contain letters, hyphen, and spaces.";
+        }
+
+        if (species == null || species.isEmpty()) {
+            return "Pet species cannot be empty.";
+        }
+
+        if (species.length() > 30) {
+            return "Pet species cannot exceed 30 characters.";
+        }
+
+        if (!species.matches(valid)) {
+            return "Pet species can only contain letters, hyphen, and spaces.";
+        }
+
+        if (age < 0 || age > 200) {
+            return "Pet age must be between 0 and 200.";
+        }
+
+        return null;
     }
 
     // @@author HarshitSrivastavaHS
